@@ -283,7 +283,7 @@
 					],
 					"transformations": [
 						{
-							"name": "split1"
+							"name": "select1"
 						}
 					],
 					"scriptLines": [
@@ -308,9 +308,26 @@
 						"     validateSchema: false,",
 						"     isolationLevel: 'READ_UNCOMMITTED',",
 						"     format: 'table') ~> source1",
-						"source1 split(startsWith(CompanyName ,'A'),",
-						"     disjoint: false) ~> split1@(ACustomer, Other)",
-						"split1@ACustomer sink(allowSchemaDrift: true,",
+						"source1 select(mapColumn(",
+						"          CustomerID,",
+						"          NameStyle,",
+						"          Title,",
+						"          FirstName,",
+						"          MiddleName,",
+						"          LastName,",
+						"          Suffix,",
+						"          CompanyName,",
+						"          SalesPerson,",
+						"          EmailAddress,",
+						"          Phone,",
+						"          PasswordHash,",
+						"          PasswordSalt,",
+						"          rowguid,",
+						"          ModifiedDate",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> select1",
+						"select1 sink(allowSchemaDrift: true,",
 						"     validateSchema: false,",
 						"     input(",
 						"          TransactionId as string,",
@@ -383,6 +400,16 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
 			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/integrationRuntime1')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
 		}
 	]
 }
