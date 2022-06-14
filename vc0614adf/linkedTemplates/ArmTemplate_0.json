@@ -70,7 +70,6 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "customer.parquet",
 						"folderPath": "test",
 						"container": "test"
 					},
