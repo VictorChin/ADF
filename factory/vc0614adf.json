@@ -1,0 +1,9 @@
+{
+	"name": "vc0614adf",
+	"location": "eastus2",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "908989c8-e684-4280-b128-43a0b99ab410",
+		"tenantId": "d50da0d4-817c-4e2f-8631-1fe8c92df045"
+	}
+}
